@@ -1,8 +1,5 @@
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
-import { Link } from 'expo-router';
+import { MaterialIcons } from '@expo/vector-icons';
 import { Drawer } from 'expo-router/drawer';
-
-import { HeaderButton } from '../../components/HeaderButton';
 
 const DrawerLayout = () => {
   return (
@@ -10,25 +7,44 @@ const DrawerLayout = () => {
       <Drawer.Screen
         name="index"
         options={{
-          headerTitle: 'Home',
-          drawerLabel: 'Home',
+          headerTitle: 'index',
+          headerTitleAlign: 'center',
+          drawerLabel: 'Pesquisar',
           drawerIcon: ({ size, color }) => (
-            <Ionicons name="home-outline" size={size} color={color} />
+            <MaterialIcons name="person-search" size={size} color={color} />
           ),
         }}
       />
       <Drawer.Screen
-        name="(tabs)"
+        name="create"
         options={{
-          headerTitle: 'Tabs',
-          drawerLabel: 'Tabs',
+          headerTitle: 'Criar',
+          headerTitleAlign: 'center',
+          drawerLabel: 'Criar',
           drawerIcon: ({ size, color }) => (
-            <MaterialIcons name="border-bottom" size={size} color={color} />
+            <MaterialIcons name="person-add-alt-1" size={size} color={color} />
           ),
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <HeaderButton />
-            </Link>
+        }}
+      />
+      <Drawer.Screen
+        name="update"
+        options={{
+          headerTitle: 'index',
+          headerTitleAlign: 'center',
+          drawerLabel: 'Atualizar',
+          drawerIcon: ({ size, color }) => (
+            <MaterialIcons name="lock-person" size={size} color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="remove"
+        options={{
+          headerTitle: 'index',
+          headerTitleAlign: 'center',
+          drawerLabel: 'Remover',
+          drawerIcon: ({ size, color }) => (
+            <MaterialIcons name="person-remove" size={size} color={color} />
           ),
         }}
       />
