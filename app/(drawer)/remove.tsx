@@ -9,17 +9,18 @@ const Remove = () => {
   const handleDelete = async () => {
     if(!cpf) return;
     const result = await deleteUsers(cpf)
-    if(result) return Alert.alert("cpf deletado com sucesso")
-    if(!result) return Alert.alert("erro ao deletar, tente novamente")
+    if(result?.length === 1) return Alert.alert("cpf deletado com sucesso")
+    if(result?length > 1) return Alert.alert("erro ao deletar, tente novamente")
   } 
   return (
     <View className="flex flex-1 items-center justify-center">
       <TextInput
-        onTextChange={(e) => setCpf(e)}
+        onChangeText={setCpf}
         className="w-full rounded-lg border-2 px-3 text-lg"
         placeholder="Seu cpf"
+        value={cpf}
       />
-      <Button onClick={handleDelete}>Remove</Button>
+      <Button onPress={handleDelete}>Remove</Button>
     </View>
   )
 }

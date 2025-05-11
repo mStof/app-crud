@@ -33,7 +33,7 @@ const Create = () => {
         ref={cpfRef}
         className="mb-4 w-full rounded-lg border-2 px-3 text-lg"
         placeholder="Seu CPF"
-        onTextChange={setCpf}
+        onChangeText={setCpf}
         value={name}
       />
       <Button onPress={handleSubmit} title="Registrar" />

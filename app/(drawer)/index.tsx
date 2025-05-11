@@ -2,9 +2,6 @@ import { Stack } from 'expo-router';
 import { useState } from 'react';
 import { Button, View } from 'react-native';
 
-import { Container } from '~/components/Container';
-import { ScreenContent } from '~/components/ScreenContent';
-
 import { useDatabase } from '~/db/useDatabase';
 import {usersTable} from "~/db/schema";
 
@@ -20,7 +17,7 @@ export default function Home() {
 
   return (
    <View>
-    <Button title="carregar lista"/>
+    <Button title="carregar lista" onPress={handleUpdate}/>
     <View>
 
     {
