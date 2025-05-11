@@ -13,7 +13,7 @@ const Remove = () => {
     if(result?length > 1) return Alert.alert("erro ao deletar, tente novamente")
   } 
   return (
-    <View className="flex flex-1 items-center justify-center">
+    <View className="flex flex-1 px-8 justify-center">
       <TextInput
         onChangeText={setCpf}
         className="w-full rounded-lg border-2 px-3 text-lg"

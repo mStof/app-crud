@@ -34,7 +34,7 @@ const Create = () => {
         className="mb-4 w-full rounded-lg border-2 px-3 text-lg"
         placeholder="Seu CPF"
         onChangeText={setCpf}
-        value={name}
+        value={cpf}
       />
       <Button onPress={handleSubmit} title="Registrar" />
     </View>

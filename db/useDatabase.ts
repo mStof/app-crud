@@ -47,9 +47,10 @@ export const useDatabase = () => {
       const result = await db
         .update(schema.usersTable)
         .set({ cpf: data.cpf, name: data.name })
-        .where(eq(schema.usersTable.cpf, data.cpf));
+        .where(eq(schema.usersTable.cpf, data.cpf)).returning();
       console.log('result ->');
       console.log(result);
+      return result;
     } catch (error) {
       console.log(error);
     }
