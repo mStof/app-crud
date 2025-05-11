@@ -2,7 +2,9 @@
   "build": {
     "preview": {
       "android": {
-        "buildType": "apk"
+        "buildType": "apk",
+        "package": "com.mstof.appcrud",
+        "versionCode": 1
       }
     },
     "preview2": {

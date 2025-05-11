@@ -13,6 +13,7 @@ export const useDatabase = () => {
       const result = await db.select().from(schema.usersTable);
       console.log('result ->');
       console.log(result);
+      return result
     } catch (error) {
       console.log(error);
     }
@@ -26,15 +27,17 @@ export const useDatabase = () => {
         .returning();
       console.log('result ->');
       console.log(result);
+      return result;
     } catch (error) {
       console.log(error);
     }
   };
   const createUsers = async (data: typeof schema.usersTable.$inferInsert) => {
     try {
-      const result = await db.insert(schema.usersTable).values(data);
+      const result = await db.insert(schema.usersTable).values(data).returning();
       console.log('result ->');
       console.log(result);
+      return result;
     } catch (error) {
       console.log(error);
     }

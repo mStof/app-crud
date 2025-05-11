@@ -5,7 +5,7 @@ import {useDatabase} from "db/useDatabase"
 
 const Remove = () => {
   const [cpf, setCpf] = useState("");
-  const { deleteUsers } = useDatbase();
+  const { deleteUsers } = useDatabase();
   const handleDelete = async () => {
     if(!cpf) return;
     const result = await deleteUsers(cpf)
