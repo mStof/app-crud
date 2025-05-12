@@ -1,6 +1,6 @@
 import { Stack } from 'expo-router';
 import { useState } from 'react';
-import { Button, View, TextInput } from 'react-native';
+import { Button, View, TextInput, Text } from 'react-native';
 
 import { useDatabase } from '~/db/useDatabase';
 import {usersTable} from "~/db/schema";
@@ -28,7 +28,7 @@ export default function Home() {
     />
     <View>
     {
-      filteredList.length ? filteredList?.map(({cpf,name}) => (
+      filteredList?.length ? filteredList?.map(({cpf,name}) => (
         <Text>{cpf} - {name}</Text>
       )) : list?.map(({cpf,name}) => (
         <Text>{cpf} - {name}</Text>

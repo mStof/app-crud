@@ -1,4 +1,4 @@
-import { View, Text, Button, Alert } from 'react-native'
+import { View, Text, Button, Alert, TextInput } from 'react-native'
 import {useState} from 'react'
 
 import {useDatabase} from "db/useDatabase"
@@ -9,8 +9,8 @@ const Remove = () => {
   const handleDelete = async () => {
     if(!cpf) return;
     const result = await deleteUsers(cpf)
-    if(result?.length === 1) return Alert.alert("cpf deletado com sucesso")
-    if(result?length > 1) return Alert.alert("erro ao deletar, tente novamente")
+    // if(result?.length > 1) return Alert.alert("erro ao deletar, tente novamente");
+    if(result?.length === 1) return Alert.alert("cpf deletado com sucesso");
   } 
   return (
     <View className="flex flex-1 px-8 justify-center">
@@ -20,7 +20,7 @@ const Remove = () => {
         placeholder="Seu cpf"
         value={cpf}
       />
-      <Button onPress={handleDelete}>Remove</Button>
+      <Button title='Deletar' onPress={handleDelete}/>
     </View>
   )
 }
