@@ -3,7 +3,6 @@
     "name": "app-crud2",
     "slug": "app-crud2",
     "version": "1.0.0",
-
     "scheme": "app-crud2",
     "web": {
       "bundler": "metro",
@@ -17,25 +16,24 @@
         {
           "launchMode": "most-recent"
         }
-      ]
+      ],
+      "expo-sqlite"
     ],
     "experiments": {
       "typedRoutes": true,
-
       "tsconfigPaths": true
     },
-
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-
     "userInterfaceStyle": "light",
-
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -43,6 +41,13 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
+      },
+      "package": "com.mstof.appcrud2"
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "d26b4225-e666-4d98-a1c1-7f35937394b2"
       }
     }
   }
