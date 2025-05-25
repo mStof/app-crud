@@ -7,7 +7,7 @@ const DrawerLayout = () => {
       <Drawer.Screen
         name="index"
         options={{
-          headerTitle: 'index',
+          headerTitle: 'Pesquisar',
           headerTitleAlign: 'center',
           drawerLabel: 'Pesquisar',
           drawerIcon: ({ size, color }) => (
@@ -29,7 +29,7 @@ const DrawerLayout = () => {
       <Drawer.Screen
         name="update"
         options={{
-          headerTitle: 'index',
+          headerTitle: 'Atualizar',
           headerTitleAlign: 'center',
           drawerLabel: 'Atualizar',
           drawerIcon: ({ size, color }) => (
@@ -40,7 +40,7 @@ const DrawerLayout = () => {
       <Drawer.Screen
         name="remove"
         options={{
-          headerTitle: 'index',
+          headerTitle: 'Remover',
           headerTitleAlign: 'center',
           drawerLabel: 'Remover',
           drawerIcon: ({ size, color }) => (

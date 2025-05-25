@@ -1,29 +1,27 @@
-import { View, Text, Button, Alert, TextInput } from 'react-native'
-import {useState} from 'react'
+import { View, Button, TextInput } from 'react-native';
+import { useState } from 'react';
 
-import {useDatabase} from "db/useDatabase"
+import { useFirebase } from '~/db/useFirebase';
 
 const Remove = () => {
-  const [cpf, setCpf] = useState("");
-  const { deleteUsers } = useDatabase();
+  const [cpf, setCpf] = useState('');
+  // const { deleteUsers } = useDatabase();
+  const { removeData } = useFirebase();
   const handleDelete = async () => {
-    if(!cpf) return;
-    const result = await deleteUsers(cpf)
-    if(result?.length === 1) return Alert.alert("cpf deletado com sucesso");
-    return  Alert.alert("erro ao deletar, tente novamente");
-    // if(result?.length 1) return Alert.alert("erro ao deletar, tente novamente");
-  } 
+    removeData(cpf);
+    setCpf('');
+  };
   return (
-    <View className="flex flex-1 px-8 justify-center gap-8">
+    <View className="flex flex-1 justify-center gap-8 px-8">
       <TextInput
         onChangeText={setCpf}
         className="w-full rounded-lg border-2 px-3 text-lg"
         placeholder="Seu cpf"
         value={cpf}
       />
-      <Button title='Deletar' onPress={handleDelete}/>
+      <Button title="Deletar" onPress={handleDelete} />
     </View>
-  )
-}
+  );
+};
 
-export default Remove
+export default Remove;
