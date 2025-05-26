@@ -1,4 +1,5 @@
-import React, { useRef, useState } from 'react';
+import { router } from 'expo-router';
+import { useRef, useState } from 'react';
 import { View, Text, Button, Alert, TextInput } from 'react-native';
 
 import { useFirebase } from '~/db/useFirebase';
@@ -7,37 +8,38 @@ const Create = () => {
   const cpfRef = useRef<TextInput>(null);
   const [name, setName] = useState('');
   const [cpf, setCpf] = useState('');
-  const { updateData } = useFirebase();
+  const { getData } = useFirebase();
 
   const handleSubmit = async () => {
     if (!name) return;
     if (!cpf) return;
-    const result = await updateData({ cpf, name });
-    console.log(result);
-    
-    if(!result) Alert.alert('Nada', 'Nenhum usuário encontrado')
-    if(result) Alert.alert('Atualizado com sucesso!');
-    setCpf('');
-    setName('');
+
+    const [user] = await getData(cpf);
+    if (user.cpf === cpf && user.name === name) {
+        setCpf("");
+        setName("");
+        return router.push("/(drawer)")
+    }
+    return Alert.alert("Info erradas")
   };
 
   return (
     <View className="flex flex-1 justify-center gap-2 px-16">
-      <Text className="mb-8 text-center text-2xl">Atualize seu usuário</Text>
-      <TextInput
-        ref={cpfRef}
-        className="mb-4 w-full rounded-lg border-2 px-3 text-lg"
-        placeholder="Seu CPF novo ou o mesmo"
-        onChangeText={setCpf}
-        value={cpf}
-      />
+      <Text className="mb-8 text-center text-2xl">Logar no app</Text>
       <TextInput
         returnKeyType="next"
         className="w-full rounded-lg border-2 px-3 text-lg"
-        placeholder="Seu nome novo"
+        placeholder="Seu nome"
         onSubmitEditing={() => cpfRef.current?.focus()}
         onChangeText={setName}
         value={name}
+      />
+      <TextInput
+        ref={cpfRef}
+        className="mb-4 w-full rounded-lg border-2 px-3 text-lg"
+        placeholder="Seu CPF"
+        onChangeText={setCpf}
+        value={cpf}
       />
       <Button onPress={handleSubmit} title="Registrar" />
     </View>

@@ -39,7 +39,9 @@ const useFirebase = () => {
     const data = await getData(updates.cpf);
     console.log(data);
     
+    console.log(data[0]);
     if (!data[0]) return false;
+    
     const { id } = data[0];
 
     update(ref(dbFB, `users/${id}`), { cpf: updates.cpf, name: updates.name });
@@ -82,6 +84,7 @@ const useFirebase = () => {
     removeData,
     updateData,
     selectDataListener,
+    getData
   };
 };
 
