@@ -38,14 +38,14 @@ const useFirebase = () => {
   const updateData = async (updates: UpdateData) => {
     const data = await getData(updates.cpf);
     console.log(data);
-    
+
     console.log(data[0]);
     if (!data[0]) return false;
-    
+
     const { id } = data[0];
 
     update(ref(dbFB, `users/${id}`), { cpf: updates.cpf, name: updates.name });
-    return true
+    return true;
   };
 
   const selectDataListener = (set: SelectData) => {
@@ -67,7 +67,8 @@ const useFirebase = () => {
 
   const getData = async (id?: GetData) => {
     const result = await get(listRef);
-    const obj = result.toJSON() as object;
+    const obj = result.toJSON();
+    if (obj === null) return [];
     const keys = Object.keys(obj);
     const values = Object.values(obj);
     const newArr: UserFB[] = [];
@@ -84,7 +85,7 @@ const useFirebase = () => {
     removeData,
     updateData,
     selectDataListener,
-    getData
+    getData,
   };
 };
 

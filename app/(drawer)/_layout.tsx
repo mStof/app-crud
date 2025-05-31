@@ -7,9 +7,9 @@ const DrawerLayout = () => {
       <Drawer.Screen
         name="index"
         options={{
-          headerTitle: 'Pesquisar',
+          headerTitle: 'Barbeiros Proximos',
           headerTitleAlign: 'center',
-          drawerLabel: 'Pesquisar',
+          drawerLabel: 'Barbeiros proximos',
           drawerIcon: ({ size, color }) => (
             <MaterialIcons name="person-search" size={size} color={color} />
           ),
@@ -29,11 +29,11 @@ const DrawerLayout = () => {
       <Drawer.Screen
         name="update"
         options={{
-          headerTitle: 'Atualizar',
+          headerTitle: 'Conta',
           headerTitleAlign: 'center',
-          drawerLabel: 'Atualizar',
+          drawerLabel: 'Conta',
           drawerIcon: ({ size, color }) => (
-            <MaterialIcons name="lock-person" size={size} color={color} />
+            <MaterialIcons name="person" size={size} color={color} />
           ),
         }}
       />
@@ -42,10 +42,7 @@ const DrawerLayout = () => {
         options={{
           headerTitle: 'Remover',
           headerTitleAlign: 'center',
-          drawerLabel: 'Remover',
-          drawerIcon: ({ size, color }) => (
-            <MaterialIcons name="person-remove" size={size} color={color} />
-          ),
+          drawerLabel: ''
         }}
       />
     </Drawer>

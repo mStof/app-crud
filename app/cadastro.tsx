@@ -1,3 +1,4 @@
+import { Link } from 'expo-router';
 import { useRef, useState } from 'react';
 import { View, Text, Button, Alert, TextInput } from 'react-native';
 
@@ -9,11 +10,11 @@ const Create = () => {
   const [cpf, setCpf] = useState('');
   const { addData } = useFirebase();
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!name) return;
     if (!cpf) return;
 
-    addData({ name, cpf });
+    await addData({ name, cpf });
     Alert.alert('Criado com sucesso!');
     setCpf("")
     setName("")
@@ -38,6 +39,8 @@ const Create = () => {
         value={cpf}
       />
       <Button onPress={handleSubmit} title="Registrar" />
+      <Link href="/cadastro" className='self-end text-sky-800 underline'>Logar</Link>
+      
     </View>
   );
 };

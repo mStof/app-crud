@@ -1,10 +1,12 @@
+import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { View, TextInput, Text, ScrollView, ActivityIndicator } from 'react-native';
+import { View, TextInput, Text, ScrollView, ActivityIndicator, BackHandler } from 'react-native';
 
 import { useFirebase } from '~/db/useFirebase';
 import { UserFB } from '~/types/user';
 
 export default function Home() {
+  BackHandler.addEventListener("hardwareBackPress", () => null);
   const [filter, setFilter] = useState('');
   const [list, setList] = useState<UserFB[]>([]);
   const { selectDataListener } = useFirebase();
