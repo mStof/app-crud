@@ -7,10 +7,11 @@ import { useSQLite } from '~/db/sqlite/useSQLite';
 import { useFirebase } from '~/db/useFirebase';
 
 const Create = () => {
-  
+  const senhaRef = useRef<TextInput>(null);
   const cpfRef = useRef<TextInput>(null);
   const [name, setName] = useState('');
   const [cpf, setCpf] = useState('');
+  const [senha, setSenha] = useState('');
   const [loading, setLoading] = useState(true);
   const { getData } = useFirebase();
   const { setUserPersisted } = usePersist();
@@ -45,14 +46,16 @@ const Create = () => {
   }, []);
 
   const handleSubmit = async () => {
-    if (!name) return;
-    if (!cpf) return;
+    if (!name) return Alert.alert("Coloque seu nome", "Sua anta");
+    if (!cpf) return Alert.alert("Coloque seu CPF", "Sua anta");
+    if (!senha) return Alert.alert("Coloque sua senha", "Sua anta");
 
     const userArr = await getData(cpf);
 
     if (userArr.length === 0) {
       setCpf('');
       setName('');
+      setSenha('');
       return Alert.alert('Info erradas');
     }
 
@@ -60,9 +63,13 @@ const Create = () => {
     if (user.name !== name) {
       setCpf('');
       setName('');
+      setSenha('');
       return Alert.alert('Info erradas');
     }
 
+    setCpf('');
+    setName('');
+    setSenha('');
     setUserPersisted(user);
     await createUser(user);
 
@@ -87,13 +94,21 @@ const Create = () => {
       <TextInput
         ref={cpfRef}
         keyboardType="numeric"
-        className="mb-4 w-full rounded-lg border-2 px-3 text-lg"
+        className="w-full rounded-lg border-2 px-3 text-lg"
         placeholder="Seu CPF"
         onChangeText={setCpf}
         value={cpf}
       />
-      <Button onPress={handleSubmit} title="Registrar" />
-      <Link href="/" className="self-end text-sky-800 underline">
+      <TextInput
+        ref={senhaRef}
+        className="mb-4 w-full rounded-lg border-2 px-3 text-lg"
+        placeholder="Sua senha"
+        keyboardType='visible-password'
+        onChangeText={setSenha}
+        value={senha}
+      />
+      <Button onPress={handleSubmit} title="Entrar" />
+      <Link href="/cadastro" className="self-end text-sky-800 underline">
         Cadastrar-se
       </Link>
     </View>

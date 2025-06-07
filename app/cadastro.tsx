@@ -6,18 +6,34 @@ import { useFirebase } from '~/db/useFirebase';
 
 const Create = () => {
   const cpfRef = useRef<TextInput>(null);
+  const senhaRef = useRef<TextInput>(null);
   const [name, setName] = useState('');
   const [cpf, setCpf] = useState('');
-  const { addData } = useFirebase();
+  const [senha, setSenha] = useState('');
+  const { addData, getData } = useFirebase();
 
   const handleSubmit = async () => {
-    if (!name) return;
-    if (!cpf) return;
+    if (!name) return Alert.alert("Coloque seu nome", "Sua anta");
+    if (!cpf) return Alert.alert("Coloque seu CPF", "Sua anta");
 
-    await addData({ name, cpf });
-    Alert.alert('Criado com sucesso!');
-    setCpf("")
-    setName("")
+
+    const userArr = await getData(cpf);
+
+    if (userArr.length === 0) {
+
+      await addData({ name, cpf, senha });
+      Alert.alert('Criado com sucesso!');
+      setCpf("")
+      setSenha("")
+      setName("")
+
+    }else{
+      setCpf("")
+      setSenha("")
+      setName("")
+      Alert.alert('já existe um usuario com esse CPF');
+    }
+
   };
 
   return (
@@ -33,10 +49,19 @@ const Create = () => {
       />
       <TextInput
         ref={cpfRef}
-        className="mb-4 w-full rounded-lg border-2 px-3 text-lg"
+        className=" w-full rounded-lg border-2 px-3 text-lg"
+        keyboardType="numeric"
         placeholder="Seu CPF"
+        onSubmitEditing={() => senhaRef.current?.focus()}
         onChangeText={setCpf}
         value={cpf}
+      />
+      <TextInput
+        ref={senhaRef}
+        className="mb-4 w-full rounded-lg border-2 px-3 text-lg"
+        placeholder="Sua senha"
+        onChangeText={setSenha}
+        value={senha}
       />
       <Button onPress={handleSubmit} title="Registrar" />
       <Link href="/" className='self-end text-sky-800 underline'>Logar</Link>
