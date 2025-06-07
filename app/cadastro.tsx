@@ -39,7 +39,7 @@ const Create = () => {
         value={cpf}
       />
       <Button onPress={handleSubmit} title="Registrar" />
-      <Link href="/cadastro" className='self-end text-sky-800 underline'>Logar</Link>
+      <Link href="/" className='self-end text-sky-800 underline'>Logar</Link>
       
     </View>
   );

@@ -7,6 +7,7 @@ import { useSQLite } from '~/db/sqlite/useSQLite';
 import { useFirebase } from '~/db/useFirebase';
 
 const Create = () => {
+  
   const cpfRef = useRef<TextInput>(null);
   const [name, setName] = useState('');
   const [cpf, setCpf] = useState('');
@@ -19,9 +20,9 @@ const Create = () => {
     const loginFast = async () => {
       console.log('loginFast');
       const data = await selectUser();
-      if (data === undefined) return;
-      const userPersist = data[0];
       console.log(data);
+      if (data === undefined || data.length === 0) return setLoading(false);
+      const userPersist = data[0];
       const userArr = await getData(userPersist.cpf);
 
       if (userArr.length === 0) {
@@ -36,6 +37,7 @@ const Create = () => {
       }
 
       console.log('loginFast -> Success');
+      setUserPersisted(userPersist);
 
       return router.push('/(drawer)');
     };
@@ -68,7 +70,7 @@ const Create = () => {
   };
 
   return loading ? (
-    <View className='flex-1 flex justify-center items-center'>
+    <View className="flex flex-1 items-center justify-center">
       <ActivityIndicator size="large" color="blue" />
     </View>
   ) : (

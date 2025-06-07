@@ -1,7 +1,20 @@
+import { BackHandler } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Drawer } from 'expo-router/drawer';
+import { useEffect } from 'react';
 
 const DrawerLayout = () => {
+
+useEffect(() => {
+  const onBackPress = () => true;
+  const backHandler = BackHandler.addEventListener(
+    'hardwareBackPress',
+    onBackPress
+  );
+
+  return () => backHandler.remove();
+}, []);
+
   return (
     <Drawer>
       <Drawer.Screen
@@ -16,17 +29,6 @@ const DrawerLayout = () => {
         }}
       />
       <Drawer.Screen
-        name="create"
-        options={{
-          headerTitle: 'Criar',
-          headerTitleAlign: 'center',
-          drawerLabel: 'Criar',
-          drawerIcon: ({ size, color }) => (
-            <MaterialIcons name="person-add-alt-1" size={size} color={color} />
-          ),
-        }}
-      />
-      <Drawer.Screen
         name="update"
         options={{
           headerTitle: 'Conta',
@@ -37,6 +39,17 @@ const DrawerLayout = () => {
           ),
         }}
       />
+        <Drawer.Screen
+          name="create"
+          options={{
+            headerTitle: 'Criar',
+            headerTitleAlign: 'center',
+            drawerLabel: 'Deslogar',
+            drawerIcon: ({ size, color }) => (
+              <MaterialIcons name="logout" size={size} color={color} />
+            ),
+          }}
+        />
       <Drawer.Screen
         name="remove"
         options={{

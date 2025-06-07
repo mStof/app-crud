@@ -17,7 +17,7 @@ export const useSQLite = () => {
     }
   };
   const deleteUser = async () => {
-    const statement = await db.prepareAsync('DELETE FROM user WHERE id = 1');
+    const statement = await db.prepareAsync('DELETE FROM user');
     try {
       const result = await statement.executeAsync();
       return result.lastInsertRowId;
