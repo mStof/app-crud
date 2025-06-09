@@ -64,7 +64,12 @@ const Create = () => {
         value={senha}
       />
       <Button onPress={handleSubmit} title="Registrar" />
-      <Link href="/" className='self-end text-sky-800 underline'>Logar</Link>
+            <View className=" flex flex-row " >
+        <Text>Já possui uma conta? </Text>
+        <Link href="/" className=" text-sky-800 underline flex justify-end">
+          Entrar
+        </Link>
+      </View>
       
     </View>
   );
