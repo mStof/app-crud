@@ -77,37 +77,41 @@ const Create = () => {
       <ActivityIndicator size="large" color="blue" />
     </View>
   ) : (
+        <>
 
+      <View className="flex flex-1 justify-center gap-2 px-16 bg-[#FFFFFF]">
 
-        
-        <View className="flex flex-1 justify-center gap-2 px-16">
       <Image
         source={require('../assets/barberShop/barberLogo.jpg')} 
+        className='w-full h-[50%]'
+        resizeMode='contain'
       />
-          <Text className="mb-8 text-center text-2xl">Logar no app</Text>
 
-          <TextInput
-            ref={cpfRef}
-            keyboardType="numeric"
-            className="w-full rounded-lg border-2 px-3 text-lg"
-            placeholder="Seu CPF"
-            onChangeText={setCpf}
-            value={cpf} />
-          <TextInput
-            ref={senhaRef}
-            className="mb-4 w-full rounded-lg border-2 px-3 text-lg"
-            placeholder="Sua senha"
-            keyboardType='visible-password'
-            onChangeText={setSenha}
-            value={senha} />
-          <Button onPress={handleSubmit} title="Entrar" />
-          <View className=" flex flex-row ">
-            <Text>Não possui uma conta? </Text>
-            <Link href="/cadastro" className=" text-sky-800 underline flex justify-end">
-              Cadastrar-se
-            </Link>
-          </View>
-        </View>
+      <Text className="mb-8 text-center text-2xl">Logar no app</Text>
+
+      <TextInput
+        ref={cpfRef}
+        keyboardType="numeric"
+        className="w-full rounded-lg border-2 px-3 text-lg"
+        placeholder="Seu CPF"
+        onChangeText={setCpf}
+        value={cpf} />
+      <TextInput
+        ref={senhaRef}
+        className="mb-4 w-full rounded-lg border-2 px-3 text-lg"
+        placeholder="Sua senha"
+        keyboardType='visible-password'
+        onChangeText={setSenha}
+        value={senha} />
+      <Button onPress={handleSubmit} title="Entrar" />
+      <View className=" flex flex-row ">
+        <Text>Não possui uma conta? </Text>
+        <Link href="/cadastro" className=" text-sky-800 underline flex justify-end">
+          Cadastrar-se
+        </Link>
+      </View>
+    </View>
+        </>
 
   );
 };
