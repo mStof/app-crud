@@ -10,7 +10,7 @@ const Create = () => {
 
   const handleLogout = async () => {
     await deleteUser();
-    setUserPersisted({ cpf: '', name: '' });
+    setUserPersisted({ cpf: '', name: '', senha:"" });
     router.replace('/cadastro');
   };
 

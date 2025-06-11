@@ -1,17 +1,18 @@
 import { get, onValue, push, ref, remove, set, update } from 'firebase/database';
 import { dbFB } from 'firebaseConfig';
 import { Alert } from 'react-native';
+import { BarberFB } from '~/types/barber';
 import { UserFB } from '~/types/user';
 
-type AddData = UserFB;
-type SelectData = React.Dispatch<React.SetStateAction<UserFB[]>> | (() => void);
-type UpdateData = UserFB;
+type AddData = UserFB | BarberFB;
+type SelectData = React.Dispatch<React.SetStateAction<BarberFB[]>> | (() => void);
+type UpdateData = UserFB | BarberFB;
 type GetData = string | undefined;
 type RemoveData = string;
 
-const useFirebase = () => {
+const useFirebase = (table: 'users' | 'barbers' = 'users') => {
   if (!dbFB) console.log('dbFb is ', dbFB);
-  const listRef = ref(dbFB, 'users');
+  const listRef = ref(dbFB, table);
 
   const addData = (data: AddData) => {
     const userRef = push(listRef);
@@ -29,7 +30,7 @@ const useFirebase = () => {
       {
         text: 'Deletar',
         onPress: () => {
-          remove(ref(dbFB, `users/${id}`));
+          remove(ref(dbFB, `table/${id}`));
         },
       },
     ]);
@@ -44,7 +45,7 @@ const useFirebase = () => {
 
     const { id } = data[0];
 
-    update(ref(dbFB, `users/${id}`), { cpf: updates.cpf, name: updates.name });
+    update(ref(dbFB, `table/${id}`), { cpf: updates.cpf, name: updates.name });
     return true;
   };
 

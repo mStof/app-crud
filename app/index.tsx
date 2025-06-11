@@ -1,21 +1,16 @@
-import { Link, router } from 'expo-router';
-import { useEffect, useRef, useState } from 'react';
-import { View, Text, Button, Alert, TextInput, ActivityIndicator, Image} from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { router } from 'expo-router';
+import { useEffect, useState } from 'react';
+import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { usePersist } from '~/context/usePersist';
 import { useSQLite } from '~/db/sqlite/useSQLite';
-
 import { useFirebase } from '~/db/useFirebase';
 
-const Create = () => {
-  const senhaRef = useRef<TextInput>(null);
-  const cpfRef = useRef<TextInput>(null);
-  const [name, setName] = useState('');
-  const [cpf, setCpf] = useState('');
-  const [senha, setSenha] = useState('');
+const Index = () => {
   const [loading, setLoading] = useState(true);
   const { getData } = useFirebase();
+  const { deleteUser, selectUser } = useSQLite();
   const { setUserPersisted } = usePersist();
-  const { createUser, selectUser, deleteUser } = useSQLite();
 
   useEffect(() => {
     const loginFast = async () => {
@@ -32,9 +27,10 @@ const Create = () => {
       }
 
       const user = userArr[0];
-      if (user.cpf !== userPersist.cpf) {
+      if (user.cpf !== userPersist.cpf || user.senha !== userPersist.senha) {
         setLoading(false);
-        return await deleteUser();
+        await deleteUser();
+        return;
       }
 
       console.log('loginFast -> Success');
@@ -44,83 +40,45 @@ const Create = () => {
     };
     loginFast();
   }, []);
-
-  const handleSubmit = async () => {
-    if (!cpf) return Alert.alert("Coloque seu CPF", "Sua anta");
-    if (!senha) return Alert.alert("Coloque sua senha", "Sua anta");
-
-    const userArr = await getData(cpf);
-
-    if (userArr.length === 0) {
-      setCpf('');
-      setSenha('');
-      return Alert.alert('Info erradas');
-    }
-
-    const user = userArr[0];
-    if (user.senha !== senha) {
-      setCpf('');
-      setSenha('');
-      return Alert.alert('Info erradas');
-    }
-
-    setCpf('');
-    setSenha('');
-    setUserPersisted(user);
-    await createUser(user);
-
-    return router.push('/(drawer)');
-  };
-
+  
   return loading ? (
     <View className="flex flex-1 items-center justify-center">
       <ActivityIndicator size="large" color="blue" />
     </View>
   ) : (
-    <>
-
-      <View className="flex flex-1 justify-center gap-2 bg-[#FFFFFF] w-[100%]">
-
-        <Image
-          source={require('../assets/barberShop/barberLogo.jpg')} 
-          className='w-full h-[50%]'
-          resizeMode='contain'
-        />
-
-        <View className='flex flex-1 justify-center gap-2 p-10 bg-blue-500 rounded-t-[10%] w-screen '>
-
-          <Text className="mb-8 text-center text-2xl text-white">Entre e sinta-se a vontade</Text>
-
-          <TextInput
-            ref={cpfRef}
-            keyboardType="numeric"
-            className="w-full rounded-lg border-2 px-3 text-lg text-white border-white"
-            placeholder="Seu CPF"
-            onChangeText={setCpf}
-            value={cpf} />
-
-          <TextInput
-            ref={senhaRef}
-            className="mb-4 w-full rounded-lg border-2 px-3 text-lg text-white border-white"
-            placeholder="Sua senha"
-            keyboardType='visible-password'
-            onChangeText={setSenha}
-            value={senha} />
-            
-          <Button onPress={handleSubmit} title="Entrar" />
-          <View className=" flex flex-row ">
-            <Text>Não possui uma conta? </Text>
-            <Link href="/cadastro" className=" text-sky-800 underline flex justify-end text-white">
-              Cadastrar-se
-            </Link>
-          </View>
-        </View>
-
+    <View className="flex flex-1 justify-end gap-16 bg-stone-100 px-8 py-16">
+      <View className="flex gap-2">
+        <Ionicons name="cut-outline" size={64} />
+        <Text className="text-4xl">Bem vindo a </Text>
+        <Text className="text-4xl">Barbearia do Zé</Text>
       </View>
+      <View className="flex w-full flex-row justify-between">
+        <TouchableOpacity
+          onPress={() => router.push('/logar')}
+          activeOpacity={0.5}
+          style={{ elevation: 2 }}
+          className="flex aspect-square w-[45%] justify-between rounded-lg bg-blue-700 p-4">
+          <Ionicons name="person-circle-outline" color="white" size={44} />
+          <View className="ml-1">
+            <Text className="text-xl text-white">Sou</Text>
+            <Text className="text-xl font-bold text-white">Um cliente</Text>
+          </View>
+        </TouchableOpacity>
 
-    </>
-
+        <TouchableOpacity
+          onPress={() => router.push('/logar_barber')}
+          activeOpacity={0.5}
+          style={{ elevation: 2 }}
+          className="flex aspect-square w-[45%] justify-between rounded-lg bg-red-700 p-4">
+          <Ionicons name="cut-sharp" color="white" size={44} />
+          <View className="ml-1">
+            <Text className="text-xl text-white">Sou</Text>
+            <Text className="text-xl font-bold text-white">Um Barbeiro</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+    </View>
   );
 };
 
-export default Create;
+export default Index;

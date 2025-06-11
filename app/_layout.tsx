@@ -17,7 +17,10 @@ export default function RootLayout() {
       <GestureHandlerRootView style={{ flex: 1 }}>
         <Stack>
           <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen name="logar" options={{ headerShown: false }} />
+          <Stack.Screen name="logar_barber" options={{ headerShown: false }} />
           <Stack.Screen name="cadastro" options={{ headerShown: false }} />
+          <Stack.Screen name="cadastro_barber" options={{ headerShown: false }} />
           <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
         </Stack>
       </GestureHandlerRootView>
